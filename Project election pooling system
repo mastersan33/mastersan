@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Polling System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-500 text-white py-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Election Polling System</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#home" class="hover:underline">Home</a></li>
+                    <li><a href="#about" class="hover:underline">About</a></li>
+                    <li><a href="#contact" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-8 px-4" id="homePage">
+        <section id="about" class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">About the Polling System</h2>
+            <p class="text-gray-700">
+                The Election Polling System is a user-friendly platform designed to facilitate secure and efficient elections.
+                It allows administrators to create polls and users to cast votes seamlessly. With robust authentication and
+                real-time result analysis, it ensures transparency and integrity throughout the voting process.
+            </p>
+        </section>
+
+        <section id="roles" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-xl font-bold mb-4">Admin Section</h3>
+                <p class="text-gray-700 mb-4">
+                    Administrators can create polls, manage voting options, and view detailed results with secure access.
+                </p>
+                <button onclick="showDeveloperLogin()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    Go to Admin Section
+                </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-xl font-bold mb-4">User Section</h3>
+                <p class="text-gray-700 mb-4">
+                    Users can participate in active polls, cast their votes securely, and ensure their voice is heard.
+                </p>
+                <button onclick="showUserSection()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                    Go to User Section
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>Election Polling System &copy; 2025. All rights reserved.</p>
+            <p>For inquiries, contact us at <a href="mailto:info@pollingsystem.com" class="text-blue-400 hover:underline">info@pollingsystem.com</a>.</p>
+        </div>
+    </footer>
+
+    <div class="container bg-white p-6 rounded-lg shadow-lg hidden" id="developerLogin">
+        <h2 class="text-xl font-bold text-center mb-4">Developer Login</h2>
+        <input type="password" id="developerPassword" placeholder="Enter Password" class="block w-full p-2 mb-4 border border-gray-300 rounded">
+        <div class="flex justify-center space-x-4">
+            <button onclick="developerLogin()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Login</button>
+            <button onclick="goHome()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Back</button>
+        </div>
+    </div>
+
+    <div class="container bg-white p-6 rounded-lg shadow-lg hidden" id="developerSection">
+        <h2 class="text-xl font-bold text-center mb-4">Developer Section</h2>
+        <div class="flex justify-center space-x-4">
+            <button onclick="showPollCreation()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Create Poll</button>
+            <button onclick="showResultsLogin()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">View Results</button>
+            <button onclick="goHome()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">&#x2190; Home</button>
+        </div>
+        <h3 class="text-lg font-bold mt-4">Created Polls:</h3>
+        <ul id="createdPolls" class="list-disc list-inside"></ul>
+    </div>
+
+    <div class="container bg-white p-6 rounded-lg shadow-lg hidden" id="pollCreation">
+        <h2 class="text-xl font-bold text-center mb-4">Create Poll</h2>
+        <input type="text" id="pollName" placeholder="Poll Name" class="block w-full p-2 mb-4 border border-gray-300 rounded">
+        <input type="number" id="maxVotes" placeholder="Maximum Votes" class="block w-full p-2 mb-4 border border-gray-300 rounded">
+        <textarea id="pollOptions" placeholder="Enter options separated by commas" class="block w-full p-2 mb-4 border border-gray-300 rounded"></textarea>
+        <div class="flex justify-center space-x-4">
+            <button onclick="createPoll()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Create</button>
+            <button onclick="goToDeveloperSection()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Back</button>
+        </div>
+    </div>
+
+    <div class="container bg-white p-6 rounded-lg shadow-lg hidden" id="resultsLogin">
+        <h2 class="text-xl font-bold text-center mb-4">View Results</h2>
+        <input type="password" id="resultsPassword" placeholder="Enter Password" class="block w-full p-2 mb-4 border border-gray-300 rounded">
+        <div class="flex justify-center space-x-4">
+            <button onclick="viewResults()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">View</button>
+            <button onclick="goToDeveloperSection()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Back</button>
+        </div>
+    </div>
+
+    <div class="container bg-white p-6 rounded-lg shadow-lg hidden" id="resultsSection">
+        <h2 class="text-xl font-bold text-center mb-4">Poll Results</h2>
+        <div id="resultsContent" class="mb-4"></div>
+        <button onclick="goToDeveloperSection()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">&#x2190; Back to Developer Section</button>
+    </div>
+
+    <div class="container bg-white p-6 rounded-lg shadow-lg hidden" id="userSection">
+        <h2 class="text-xl font-bold text-center mb-4">User Voting</h2>
+        <input type="text" id="userName" placeholder="Enter Your Name" class="block w-full p-2 mb-4 border border-gray-300 rounded">
+        <div id="pollSelection" class="p-4 border border-gray-300 rounded mb-4">
+            <label class="block font-bold mb-2">Select a Poll:</label>
+            <div id="pollList"></div>
+        </div>
+        <div id="pollOptionsContainer" class="text-center"></div>
+        <button onclick="goHome()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mt-4">&#x2190; Home</button>
+    </div>
+
+    <script>
+        let polls = [];
+        const developerPassword = "dev123";
+        const resultsPassword = "res123";
+
+        function showDeveloperLogin() {
+            document.getElementById("homePage").classList.add("hidden");
+            document.getElementById("developerLogin").classList.remove("hidden");
+        }
+
+        function developerLogin() {
+            const password = document.getElementById("developerPassword").value;
+            document.getElementById("developerPassword").value = "";
+            if (password === developerPassword) {
+                document.getElementById("developerLogin").classList.add("hidden");
+                document.getElementById("developerSection").classList.remove("hidden");
+                updateCreatedPolls();
+            } else {
+                alert("Incorrect Password");
+            }
+        }
+
+        function showPollCreation() {
+            document.getElementById("developerSection").classList.add("hidden");
+            document.getElementById("pollCreation").classList.remove("hidden");
+        }
+
+        function createPoll() {
+            const pollName = document.getElementById("pollName").value;
+            const maxVotesInput = document.getElementById("maxVotes").value;
+            const options = document.getElementById("pollOptions").value.split(",").map(opt => opt.trim());
+
+            let maxVotes = parseInt(maxVotesInput);
+
+            if (!pollName) {
+                alert("Poll name is required");
+                return;
+            }
+            if (isNaN(maxVotes) || maxVotes <= 0) {
+                alert("Maximum votes must be a number greater than 0");
+                return;
+            }
+            if (!options || options.length === 0 || options.some(option => option === "")) {
+                alert("Poll options are required and cannot be empty");
+                return;
+            }
+
+            if (pollName && maxVotes > 0 && options.length > 0) {
+                polls.push({ pollName, maxVotes, options, votes: {}, voters: [] });
+                alert("Poll Created Successfully");
+                document.getElementById("pollName").value = "";
+                document.getElementById("maxVotes").value = "";
+                document.getElementById("pollOptions").value = "";
+                goToDeveloperSection();
+                updateCreatedPolls(); // Update the list after creating a poll
+            } else {
+                alert("Please fill all fields correctly with a valid maximum number of votes.");
+            }
+        }
+
+        function updateCreatedPolls() {
+            const createdPollsList = document.getElementById("createdPolls");
+            createdPollsList.innerHTML = "";
+            polls.forEach((poll, index) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${index + 1}. ${poll.pollName} (Max Voters: ${poll.maxVotes})`;
+                createdPollsList.appendChild(listItem);
+            });
+        }
+
+        function goToDeveloperSection() {
+            document.getElementById("pollCreation").classList.add("hidden");
+            document.getElementById("resultsLogin").classList.add("hidden");
+            document.getElementById("resultsSection").classList.add("hidden");
+            document.getElementById("developerSection").classList.remove("hidden");
+            updateCreatedPolls();
+        }
+
+        function showUserSection() {
+            document.getElementById("homePage").classList.add("hidden");
+            document.getElementById("userSection").classList.remove("hidden");
+            updatePollList();
+            document.getElementById("pollOptionsContainer").innerHTML = ""; // Clear previous poll options
+        }
+
+        function updatePollList() {
+            const pollList = document.getElementById("pollList");
+            pollList.innerHTML = "";
+            let hasPollsAvailable = false;
+            polls.forEach((poll, index) => {
+                if (poll.voters.length < poll.maxVotes) {
+                    const radioOption = document.createElement("div");
+                    radioOption.innerHTML = `<input type='radio' name='selectedPoll' value='${index}' id='poll-${index}'><label for='poll-${index}'> ${poll.pollName}</label>`;
+                    pollList.appendChild(radioOption);
+                    hasPollsAvailable = true; // Set flag if any poll is available
+                }
+            });
+
+            const voteButton = document.createElement("button");
+            voteButton.textContent = "Select Poll to Vote";
+            voteButton.className = "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mt-2";
+            voteButton.onclick = () => {
+                const selectedPollInput = document.querySelector('input[name="selectedPoll"]:checked');
+                if (selectedPollInput) {
+                    const selectedPollIndex = selectedPollInput.value;
+                    displayPollOptions(selectedPollIndex);
+                } else {
+                    alert("Please select a poll to vote in.");
+                }
+            };
+
+            if (hasPollsAvailable) {
+                pollList.appendChild(voteButton);
+            } else if (polls.length > 0) {
+                const noPollsMessage = document.createElement("p");
+                noPollsMessage.textContent = "No polls currently available for voting or all polls have reached their maximum votes.";
+                pollList.appendChild(noPollsMessage);
+            } else {
+                const noPollsMessage = document.createElement("p");
+                noPollsMessage.textContent = "No polls have been created yet.";
+                pollList.appendChild(noPollsMessage);
+            }
+        }
+
+        function displayPollOptions(pollIndex) {
+            const poll = polls[pollIndex];
+            const userNameInput = document.getElementById("userName");
+            const userName = userNameInput.value.trim();
+
+            if (!userName) {
+                alert("Please enter your name before selecting a poll.");
+                return;
+            }
+
+            if (poll.voters.includes(userName)) {
+                alert("You have already voted in this poll.");
+                return;
+            }
+
+            if (poll.voters.length >= poll.maxVotes) {
+                alert("This poll has reached its maximum number of votes.");
+                updatePollList(); // Refresh the poll list
+                document.getElementById("pollOptionsContainer").innerHTML = "";
+                return;
+            }
+
+            const pollOptionsContainer = document.getElementById("pollOptionsContainer");
+            pollOptionsContainer.innerHTML = `<h3 class='text-lg font-bold mb-4'>${poll.pollName}</h3>`;
+            poll.options.forEach((option, optionIndex) => {
+                const radioOption = document.createElement("div");
+                radioOption.innerHTML = `<input type="radio" id="option-${optionIndex}" name="selectedOption" value="${option}">
+                                         <label for="option-${optionIndex}">${option}</label><br>`;
+                pollOptionsContainer.appendChild(radioOption);
+            });
+
+            const voteButton = document.createElement("button");
+            voteButton.textContent = "Cast Vote";
+            voteButton.className = "bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 mt-4";
+            voteButton.onclick = () => {
+                const selectedOptionInput = document.querySelector('input[name="selectedOption"]:checked');
+                if (!selectedOptionInput) {
+                    alert("Please select an option to vote for.");
+                    return;
+                }
+                const selectedOption = selectedOptionInput.value;
+                if (confirm(`Are you sure you want to vote for '${selectedOption}' in '${poll.pollName}'?`)) {
+                    poll.voters.push(userName);
+                    poll.votes[selectedOption] = (poll.votes[selectedOption] || 0) + 1;
+                    alert("Vote Cast Successfully");
+                    userNameInput.value = ""; // Clear username after voting
+                    showUserSection(); // Refresh user section
+                }
+            };
+            pollOptionsContainer.appendChild(voteButton);
+        }
+
+        function goHome() {
+            document.querySelectorAll(".container").forEach(container => container.classList.add("hidden"));
+            document.getElementById("homePage").classList.remove("hidden");
+        }
+
+        function showResultsLogin() {
+            document.getElementById("developerSection").classList.add("hidden");
+            document.getElementById("resultsLogin").classList.remove("hidden");
+        }
+
+        function viewResults() {
+            const password = document.getElementById("resultsPassword").value;
+            document.getElementById("resultsPassword").value = "";
+            if (password === resultsPassword) {
+                document.getElementById("resultsLogin").classList.add("hidden");
+                const resultsSection = document.getElementById("resultsSection");
+                const resultsContent = document.getElementById("resultsContent");
+                resultsContent.innerHTML = "";
+                polls.forEach(poll => {
+                    const pollResult = document.createElement("div");
+                    pollResult.innerHTML = `<h3 class='text-lg font-bold mb-4'>${poll.pollName}</h3>`;
+                    const totalVotes = Object.values(poll.votes).reduce((a, b) => a + b, 0);
+                    poll.options.forEach(option => {
+                        const percentage = totalVotes > 0 ? ((poll.votes[option] || 0) / totalVotes * 100).toFixed(2) : 0;
+                        pollResult.innerHTML += `<p>${option}: ${percentage}% (Votes: ${poll.votes[option] || 0})</p>`;
+                    });
+                    pollResult.innerHTML += `<p>Voters: ${poll.voters.length}/${poll.maxVotes}</p>`;
+                    resultsContent.appendChild(pollResult);
+                });
+                resultsSection.classList.remove("hidden");
+            } else {
+                alert("Incorrect Password");
+            }
+        }
+    </script>
+</body>
+</html>
